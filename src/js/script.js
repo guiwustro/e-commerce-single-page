@@ -9,8 +9,9 @@ function createListProducts(product) {
 	const imgProduct = createImgProduct(product);
 	const nameProduct = createNameProduct(product);
 	const priceProduct = createPriceProduct(product);
+	const priceSection = createSectionProduct(product);
 	list.append(infoProduct);
-	infoProduct.append(imgProduct, nameProduct, priceProduct);
+	infoProduct.append(imgProduct, nameProduct, priceSection, priceProduct);
 	return infoProduct;
 }
 
@@ -24,16 +25,21 @@ function createImgProduct(product) {
 function createNameProduct(product) {
 	const nameProduct = document.createElement("h3");
 	nameProduct.innerText = product.nome;
+	nameProduct.classList.add("nameProduct");
 	return nameProduct;
 }
 
+function createSectionProduct(product) {
+	const priceSection = document.createElement("span");
+	priceSection.innerText = `${product.secao}`;
+	priceSection.classList.add("sectionProduct");
+	return priceSection;
+}
 function createPriceProduct(product) {
-	const priceDescription = document.createElement("p");
-	priceDescription.innerText = product.preco.toFixed(2);
-	const priceNumber = document.createElement("span");
-	priceNumber.innerText = `Seção - ${product.secao}`;
-	priceDescription.append(priceNumber);
-	return priceDescription;
+	const priceProduct = document.createElement("p");
+	priceProduct.innerText = `R$ ${product.preco.toFixed(2)}`;
+	priceProduct.classList.add("priceProduct");
+	return priceProduct;
 }
 
 createData(produtos);

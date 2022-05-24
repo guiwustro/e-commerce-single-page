@@ -13,41 +13,39 @@
 		<header>
 			<div id="filters" class="filtersContainer">
 				<button class="estiloGeralBotoes estiloGeralBotoes--mostrarTodos">
-					Mostrar Todos
+					Todos
 				</button>
 				<button class="estiloGeralBotoes estiloGeralBotoes--filtrarHortifruti">
-					Mostrar Hortifruti
+					Hortifruti
 				</button>
 				<button
 					class="estiloGeralBotoes estiloGeralBotoes--filtrarPanificadora"
 				>
-					Mostrar Panificadora
+					Panificadora
 				</button>
 				<button class="estiloGeralBotoes estiloGeralBotoes--filtrarLaticínio">
-					Mostrar Laticínio
+					Laticínios
 				</button>
-				<div class="containerBuscaPorNome">
-					<input
-						type="text"
-						placeholder="Nome do produto"
-						class="campoBuscaPorNome"
-					/>
-					<button
-						class="estiloGeralBotoes estiloGeralBotoes--botaoBuscaPorNome"
-					>
-						Buscar
-					</button>
-				</div>
+			</div>
+			<div class="containerBuscaPorNome">
+				<input
+					type="text"
+					placeholder="Nome do produto"
+					class="campoBuscaPorNome"
+				/>
+				<button class="estiloGeralBotoes estiloGeralBotoes--botaoBuscaPorNome">
+					<img src="src/img/magnifying-glass-solid.svg" alt="" />
+				</button>
 			</div>
 		</header>
 
 		<main>
+			<div class="containerPrecoTotal">
+				<p>Valor total dos produtos da sessão selecionada</p>
+				<p class="bgBlack">R$ <span id="precoTotal">00.00</span></p>
+			</div>
 			<div class="containerListaProdutos" id="listProdutos">
 				<ul></ul>
-			</div>
-
-			<div class="containerPrecoTotal">
-				<p>Preço total: R$<span id="precoTotal">00.00</span></p>
 			</div>
 		</main>
 
