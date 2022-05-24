@@ -63,7 +63,7 @@ function searchProduct(event) {
 function clearAndList(products) {
 	const list = document.querySelector("ul");
 	list.innerHTML = "";
-	createData(products);
+	return createData(products);
 }
 
 function totalPrice(products) {
@@ -72,6 +72,7 @@ function totalPrice(products) {
 		.toFixed(2);
 	const precoTotal = document.querySelector("#precoTotal");
 	precoTotal.innerText = newPrice;
+	return precoTotal;
 }
 
 function getProductsByName(value) {
@@ -100,7 +101,7 @@ function filterByButton(event) {
 	if (
 		sectionChoose == "hortifruti" ||
 		sectionChoose === "panificadora" ||
-		sectionChoose == "laticinios"
+		sectionChoose == "laticínio"
 	) {
 		const productFilter = getProductsBySection(sectionChoose);
 		tradeOldSectionClass();
