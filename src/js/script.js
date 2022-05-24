@@ -26,7 +26,7 @@ const getSearch = document.querySelector(".containerBuscaPorNome");
 
 function searchProduct(event) {
 	if (event.target.tagName === "BUTTON" || event.key === "Enter") {
-		getFilterProductsByName(document.querySelector("input").value);
+		getProductsByName(document.querySelector("input").value);
 		clearAndList(productFilter);
 		totalPrice(productFilter);
 	}
@@ -45,14 +45,14 @@ function totalPrice(products) {
 	precoTotal.innerHTML = newPrice;
 }
 
-function getFilterProductsByName(value) {
+function getProductsByName(value) {
 	productFilter = produtos.filter((product) =>
 		product.nome.toLowerCase().includes(value.toLowerCase())
 	);
 	return productFilter;
 }
 
-function getFilterProductsBySection(value) {
+function getProductsBySection(value) {
 	productFilter = produtos.filter((product) =>
 		product.secao.toLowerCase().includes(value.toLowerCase())
 	);
@@ -71,10 +71,10 @@ function filterByButton(event) {
 		totalPrice(produtos);
 	} else if (event.target.className.includes("estiloGeralBotoes")) {
 		//A ideia aqui era fazer de um jeito que eu pudesse identificar qual seria o botão clicado da forma mais "clean" possível. Ao invés de usar a condicional com o nome do produto, filtrei usando regexp
-		//!Explicação regexp: Usando match com o regex cria um array com as possibilidades filtradas. Nesse caso a length vai ser 3 e o nome do filtro encontrado será o segundo elemento(o elemento entre parentenses - ).
-		console.log(event.target.className.match(/(filtrar(\w+))/));
-		let sectionName = event.target.className.match(/(filtrar(\w+))/)[2];
-		getFilterProductsBySection(sectionName);
+		//!Explicação regexp: Usando match com o regex cria um array com as possibilidades filtradas. Nesse caso a length vai ser 2 e o nome do filtro encontrado será o segundo elemento(o elemento entre parentenses - ).
+		console.log(event.target.className.match(/filtrar(\w+)/));
+		let sectionName = event.target.className.match(/filtrar(\w+)/)[1];
+		getProductsBySection(sectionName);
 		clearAndList(productFilter);
 		totalPrice(productFilter);
 	}
