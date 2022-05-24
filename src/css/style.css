@@ -28,14 +28,12 @@ header {
 	height: 37px;
 }
 
-.estiloGeralBotoes--mostrarTodos {
+.estiloGeralBotoes--selected {
 	color: white;
 	background-color: #12b886;
 }
 
-.estiloGeralBotoes--filtrarHortifruti,
-.estiloGeralBotoes--filtrarPanificadora,
-.estiloGeralBotoes--filtrarLaticínio {
+.estiloGeralBotoes--padrao {
 	background-color: #12b8860d;
 	color: #12b886;
 }

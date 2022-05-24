@@ -1,5 +1,5 @@
 function createData(productArray) {
-	productArray.forEach((product) => {
+	return productArray.forEach((product) => {
 		createListProducts(product);
 	});
 }
@@ -96,18 +96,35 @@ const filtersContainer = document.querySelector(".filtersContainer");
 filtersContainer.addEventListener("click", filterByButton);
 
 function filterByButton(event) {
+	const sectionChoose = event.target.id;
 	if (
-		event.target.className ===
-		"estiloGeralBotoes estiloGeralBotoes--mostrarTodos"
+		sectionChoose == "hortifruti" ||
+		sectionChoose === "panificadora" ||
+		sectionChoose == "laticinios"
 	) {
-		clearAndList(produtos);
-		totalPrice(produtos);
-	} else if (event.target.className.includes("estiloGeralBotoes--filtrar")) {
-		//A ideia aqui era fazer de um jeito que eu pudesse identificar qual seria o botão clicado da forma mais "clean" possível. Ao invés de usar a condicional com o nome do produto, filtrei usando regexp
-		//!Explicação regexp: Usando match com o regex cria um array com as possibilidades filtradas. Nesse caso a length vai ser 2 e o nome do filtro encontrado será o segundo elemento(o elemento entre parentenses - ).
-		let sectionName = event.target.className.match(/filtrar(\w+)/)[1];
-		const productFilter = getProductsBySection(sectionName);
+		const productFilter = getProductsBySection(sectionChoose);
+		tradeOldSectionClass();
 		clearAndList(productFilter);
 		totalPrice(productFilter);
+		tradeNewSectionClass(sectionChoose);
+	} else if (sectionChoose === "todos") {
+		tradeOldSectionClass();
+		clearAndList(produtos);
+		totalPrice(produtos);
+		tradeNewSectionClass(sectionChoose);
 	}
+}
+
+function tradeNewSectionClass(id) {
+	const sectionSelected = document.querySelector(`#${id}`);
+	sectionSelected.classList.add("estiloGeralBotoes--selected");
+	sectionSelected.classList.remove("estiloGeralBotoes--padrao");
+	return sectionSelected;
+}
+
+function tradeOldSectionClass() {
+	const lastSelected = document.querySelector(".estiloGeralBotoes--selected");
+	lastSelected.classList.remove("estiloGeralBotoes--selected");
+	lastSelected.classList.add("estiloGeralBotoes--padrao");
+	return lastSelected;
 }
