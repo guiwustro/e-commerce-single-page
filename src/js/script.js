@@ -63,15 +63,19 @@ const filtersContainer = document.querySelector(".filtersContainer");
 filtersContainer.addEventListener("click", filterByButton);
 
 function filterByButton(event) {
-	switch (event.target.className) {
-		case "estiloGeralBotoes estiloGeralBotoes--mostrarTodos":
-			clearAndList(produtos);
-			totalPrice(produtos);
-			break;
-		case "estiloGeralBotoes estiloGeralBotoes--filtrarHortifruti":
-			getFilterProductsBySection("Hortifruti");
-			clearAndList(productFilter);
-			totalPrice(productFilter);
-			break;
+	if (
+		event.target.className ===
+		"estiloGeralBotoes estiloGeralBotoes--mostrarTodos"
+	) {
+		clearAndList(produtos);
+		totalPrice(produtos);
+	} else if (event.target.className.includes("estiloGeralBotoes")) {
+		//A ideia aqui era fazer de um jeito que eu pudesse identificar qual seria o botão clicado da forma mais "clean" possível. Ao invés de usar a condicional com o nome do produto, filtrei usando regexp
+		//!Explicação regexp: Usando match com o regex cria um array com as possibilidades filtradas. Nesse caso a length vai ser 3 e o nome do filtro encontrado será o segundo elemento(o elemento entre parentenses - ).
+		console.log(event.target.className.match(/(filtrar(\w+))/));
+		let sectionName = event.target.className.match(/(filtrar(\w+))/)[2];
+		getFilterProductsBySection(sectionName);
+		clearAndList(productFilter);
+		totalPrice(productFilter);
 	}
 }
