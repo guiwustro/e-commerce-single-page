@@ -1,24 +1,44 @@
-const list = document.querySelector("ul");
-
-function listProducts(productArray) {
+function createData(productArray) {
 	productArray.forEach((product) => {
-		const infoProduct = document.createElement("li");
-		infoProduct.innerHTML = `
-    <img src="${product.img.replace(
-			"ç",
-			"c"
-		)}" alt="Imagem ${product.nome.toLowerCase()}">
-    <h3>${product.nome}</h3>
-    <p>R${product.preco.toFixed(2)}</p>
-    <span>Seção - ${product.secao}</span>
-    `;
-		list.appendChild(infoProduct);
+		createListProducts(product);
 	});
 }
-listProducts(produtos);
+function createListProducts(product) {
+	const list = document.querySelector("ul");
+	const infoProduct = document.createElement("li");
+	const imgProduct = createImgProduct(product);
+	const nameProduct = createNameProduct(product);
+	const priceProduct = createPriceProduct(product);
+	list.append(infoProduct);
+	infoProduct.append(imgProduct, nameProduct, priceProduct);
+	return infoProduct;
+}
+
+function createImgProduct(product) {
+	const imgProduct = document.createElement("img");
+	imgProduct.src = `${product.img.replace("ç", "c")}`;
+	imgProduct.alt = `Imagem ${product.nome.toLowerCase()}`;
+	return imgProduct;
+}
+
+function createNameProduct(product) {
+	const nameProduct = document.createElement("h3");
+	nameProduct.innerText = product.nome;
+	return nameProduct;
+}
+
+function createPriceProduct(product) {
+	const priceDescription = document.createElement("p");
+	priceDescription.innerText = product.preco.toFixed(2);
+	const priceNumber = document.createElement("span");
+	priceNumber.innerText = `Seção - ${product.secao}`;
+	priceDescription.append(priceNumber);
+	return priceDescription;
+}
+
+createData(produtos);
 totalPrice(produtos);
 
-let productFilter = [];
 const getSearch = document.querySelector(".containerBuscaPorNome");
 ["click", "keypress"].forEach((event) =>
 	getSearch.addEventListener(event, searchProduct)
@@ -26,15 +46,18 @@ const getSearch = document.querySelector(".containerBuscaPorNome");
 
 function searchProduct(event) {
 	if (event.target.tagName === "BUTTON" || event.key === "Enter") {
-		getProductsByName(document.querySelector("input").value);
+		const productFilter = getProductsByName(
+			document.querySelector("input").value
+		);
 		clearAndList(productFilter);
 		totalPrice(productFilter);
 	}
 }
 
 function clearAndList(products) {
+	const list = document.querySelector("ul");
 	list.innerHTML = "";
-	listProducts(products);
+	createData(products);
 }
 
 function totalPrice(products) {
@@ -42,10 +65,12 @@ function totalPrice(products) {
 		.reduce((accumulator, currentValue) => accumulator + currentValue.preco, 0)
 		.toFixed(2);
 	const precoTotal = document.querySelector("#precoTotal");
-	precoTotal.innerHTML = newPrice;
+	precoTotal.innerText = newPrice;
 }
 
 function getProductsByName(value) {
+	let productFilter = [];
+
 	productFilter = produtos.filter((product) =>
 		product.nome.toLowerCase().includes(value.toLowerCase())
 	);
@@ -53,6 +78,8 @@ function getProductsByName(value) {
 }
 
 function getProductsBySection(value) {
+	let productFilter = [];
+
 	productFilter = produtos.filter((product) =>
 		product.secao.toLowerCase().includes(value.toLowerCase())
 	);
@@ -69,12 +96,11 @@ function filterByButton(event) {
 	) {
 		clearAndList(produtos);
 		totalPrice(produtos);
-	} else if (event.target.className.includes("estiloGeralBotoes")) {
+	} else if (event.target.className.includes("estiloGeralBotoes--filtrar")) {
 		//A ideia aqui era fazer de um jeito que eu pudesse identificar qual seria o botão clicado da forma mais "clean" possível. Ao invés de usar a condicional com o nome do produto, filtrei usando regexp
 		//!Explicação regexp: Usando match com o regex cria um array com as possibilidades filtradas. Nesse caso a length vai ser 2 e o nome do filtro encontrado será o segundo elemento(o elemento entre parentenses - ).
-		console.log(event.target.className.match(/filtrar(\w+)/));
 		let sectionName = event.target.className.match(/filtrar(\w+)/)[1];
-		getProductsBySection(sectionName);
+		const productFilter = getProductsBySection(sectionName);
 		clearAndList(productFilter);
 		totalPrice(productFilter);
 	}
