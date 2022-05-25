@@ -28,14 +28,13 @@ header {
 	height: 37px;
 }
 
-.estiloGeralBotoes--selected {
-	color: white;
-	background-color: #12b886;
-}
-
 .estiloGeralBotoes--padrao {
 	background-color: #12b8860d;
 	color: #12b886;
+}
+.estiloGeralBotoes--selected {
+	color: white;
+	background-color: #12b886;
 }
 
 .containerBuscaPorNome {

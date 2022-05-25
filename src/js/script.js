@@ -104,28 +104,19 @@ function filterByButton(event) {
 		sectionChoose == "laticínio"
 	) {
 		const productFilter = getProductsBySection(sectionChoose);
-		tradeOldSectionClass();
 		clearAndList(productFilter);
 		totalPrice(productFilter);
-		tradeNewSectionClass(sectionChoose);
+		tradeSelectClass(sectionChoose);
 	} else if (sectionChoose === "todos") {
-		tradeOldSectionClass();
 		clearAndList(produtos);
 		totalPrice(produtos);
-		tradeNewSectionClass(sectionChoose);
+		tradeSelectClass(sectionChoose);
 	}
 }
 
-function tradeNewSectionClass(id) {
-	const sectionSelected = document.querySelector(`#${id}`);
-	sectionSelected.classList.add("estiloGeralBotoes--selected");
-	sectionSelected.classList.remove("estiloGeralBotoes--padrao");
-	return sectionSelected;
-}
-
-function tradeOldSectionClass() {
+function tradeSelectClass(idSection) {
 	const lastSelected = document.querySelector(".estiloGeralBotoes--selected");
 	lastSelected.classList.remove("estiloGeralBotoes--selected");
-	lastSelected.classList.add("estiloGeralBotoes--padrao");
-	return lastSelected;
+	const sectionChoose = document.querySelector(`#${idSection}`);
+	sectionChoose.classList.add("estiloGeralBotoes--selected");
 }
