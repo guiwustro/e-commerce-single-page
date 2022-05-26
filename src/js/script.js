@@ -51,7 +51,11 @@ const getSearch = document.querySelector(".containerBuscaPorNome");
 );
 
 function searchProduct(event) {
-	if (event.target.tagName === "BUTTON" || event.key === "Enter") {
+	if (
+		event.target.tagName === "BUTTON" ||
+		event.target.tagName === "IMG" ||
+		event.key === "Enter"
+	) {
 		const productFilter = getProductsByName(
 			document.querySelector("input").value
 		);
@@ -93,21 +97,21 @@ function getProductsBySection(value) {
 	return productFilter;
 }
 
-const filtersContainer = document.querySelector(".filtersContainer");
-filtersContainer.addEventListener("click", filterByButton);
+const filtersContainer = document.querySelectorAll(
+	".estiloGeralBotoes--padrao"
+);
+filtersContainer.forEach((button) =>
+	button.addEventListener("click", filterByButton)
+);
 
 function filterByButton(event) {
 	const sectionChoose = event.target.id;
-	if (
-		sectionChoose == "hortifruti" ||
-		sectionChoose === "panificadora" ||
-		sectionChoose == "laticínio"
-	) {
+	if (sectionChoose != "todos") {
 		const productFilter = getProductsBySection(sectionChoose);
 		clearAndList(productFilter);
 		totalPrice(productFilter);
 		tradeSelectClass(sectionChoose);
-	} else if (sectionChoose === "todos") {
+	} else {
 		clearAndList(produtos);
 		totalPrice(produtos);
 		tradeSelectClass(sectionChoose);
