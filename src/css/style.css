@@ -143,3 +143,17 @@ main {
 	line-height: 16px;
 	color: #212529;
 }
+
+.transitionImages {
+	animation-name: someSome;
+	animation-duration: 0.5s;
+}
+
+@keyframes someSome {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
