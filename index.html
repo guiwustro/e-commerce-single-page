@@ -11,55 +11,47 @@
 	<body>
 		<!-- CABEÇALHO -->
 		<header>
-			<div id="filters" class="filtersContainer">
-				<button
-					id="todos"
-					class="estiloGeralBotoes estiloGeralBotoes--padrao estiloGeralBotoes--selected"
-				>
+			<div class="filter">
+				<button id="todos" class="button button--standard button--selected">
 					Todos
 				</button>
-				<button
-					id="hortifruti"
-					class="estiloGeralBotoes estiloGeralBotoes--padrao"
-				>
+				<button id="hortifruti" class="button button--standard">
 					Hortifruti
 				</button>
-				<button
-					id="panificadora"
-					class="estiloGeralBotoes estiloGeralBotoes--padrao"
-				>
+				<button id="panificadora" class="button button--standard">
 					Panificadora
 				</button>
-				<button
-					id="laticínio"
-					class="estiloGeralBotoes estiloGeralBotoes--padrao"
-				>
+				<button id="laticínio" class="button button--standard">
 					Laticínios
 				</button>
 			</div>
-			<div class="containerBuscaPorNome">
+			<div class="search-name">
 				<input
 					type="text"
 					placeholder="Nome do produto"
-					class="campoBuscaPorNome"
+					class="search-name__input"
 				/>
-				<button
-					class="estiloGeralBotoes estiloGeralBotoes--botaoBuscaPorNome"
-					id="search"
-				>
-					<img src="src/img/magnifying-glass-solid.svg" alt="" id="search" />
+				<button class="button search-name__button" id="search">
+					<img
+						class="img"
+						src="src/img/magnifying-glass-solid.svg"
+						alt=""
+						id="search"
+					/>
 				</button>
 			</div>
 		</header>
 
 		<main>
-			<div class="containerPrecoTotal">
-				<p>Valor total dos produtos da sessão selecionada</p>
-				<p class="bgBlack">R$ <span id="precoTotal">00.00</span></p>
+			<div class="total-price">
+				<p class="total-price__text">
+					Valor total dos produtos da sessão selecionada
+				</p>
+				<p class="total-price__text--bg-black">
+					R$ <span id="precoTotal">00.00</span>
+				</p>
 			</div>
-			<div class="containerListaProdutos" id="listProdutos">
-				<ul></ul>
-			</div>
+			<ul class="product-list"></ul>
 		</main>
 
 		<script src="src/js/dataProdutos.js"></script>

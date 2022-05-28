@@ -19,15 +19,18 @@ function createData(productArray) {
 function createListProducts(product) {
 	const list = document.querySelector("ul");
 	const infoProduct = document.createElement("li");
-	infoProduct.classList.add(`${product.secao.toLowerCase()}`);
-	const nomeProdutoTratado = product.nome
+	infoProduct.classList.add(
+		"product-list__item",
+		`${product.secao.toLowerCase()}`
+	);
+	const treatedName = product.nome
 		.normalize("NFD")
 		.toLowerCase()
 		.replace(/[\u0300-\u036f]/g, "")
 		.split(" ")
 		.join("");
 	// Fonte: https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript (Peguei o regexp do replace aqui!)
-	infoProduct.id = `${nomeProdutoTratado}`;
+	infoProduct.id = `${treatedName}`;
 	const imgProduct = createImgProduct(product);
 	const nameProduct = createNameProduct(product);
 	const priceProduct = createPriceProduct(product);
@@ -47,27 +50,27 @@ function createImgProduct(product) {
 function createNameProduct(product) {
 	const nameProduct = document.createElement("h3");
 	nameProduct.innerText = product.nome;
-	nameProduct.classList.add("nameProduct");
+	nameProduct.classList.add("item__name");
 	return nameProduct;
 }
 
 function createSectionProduct(product) {
 	const priceSection = document.createElement("span");
 	priceSection.innerText = `${product.secao}`;
-	priceSection.classList.add("sectionProduct");
+	priceSection.classList.add("item__section");
 	return priceSection;
 }
 function createPriceProduct(product) {
 	const priceProduct = document.createElement("p");
 	priceProduct.innerText = `R$ ${product.preco.toFixed(2)}`;
-	priceProduct.classList.add("priceProduct");
+	priceProduct.classList.add("item__price");
 	return priceProduct;
 }
 
 createData(produtos);
 totalPrice(produtos);
 
-const getSearch = document.querySelector(".containerBuscaPorNome");
+const getSearch = document.querySelector(".search-name");
 ["click", "keypress"].forEach((event) =>
 	getSearch.addEventListener(event, searchProduct)
 );
@@ -81,19 +84,18 @@ function searchProduct(event) {
 		const productFilter = getProductsByName(
 			document.querySelector("input").value
 		);
-
 		clearAndList(productFilter);
 		totalPrice(productFilter);
 	}
 }
 
 function clearAndList(products) {
+	const elementsList = document.querySelectorAll("li");
 	const list = document.querySelector("ul");
-	const arrayList = [...list];
+	const arrayList = Array.from(elementsList);
 	arrayList.forEach((product) => {
 		list.removeChild(product);
 	});
-	// list.innerHTML = "";
 	return createData(products);
 }
 
@@ -159,9 +161,7 @@ function getProductsThatAreNotSelected(value) {
 	return productsNotFiltered;
 }
 
-const filtersContainer = document.querySelectorAll(
-	".estiloGeralBotoes--padrao"
-);
+const filtersContainer = document.querySelectorAll(".button--standard");
 filtersContainer.forEach((button) =>
 	button.addEventListener("click", filterByButton)
 );
@@ -171,9 +171,7 @@ function filterByButton(event) {
 	if (sectionChoose != "todos") {
 		const productFilter = getProductsBySection(sectionChoose);
 		const notSelectedProducts = getProductsThatAreNotSelected(sectionChoose);
-		// animationNotSelectedProducts(notSelectedProducts);
 		filterAndList(notSelectedProducts, productFilter);
-		// clearAndList(productFilter);
 		totalPrice(productFilter);
 		tradeSelectClass(sectionChoose);
 	} else {
@@ -184,48 +182,8 @@ function filterByButton(event) {
 }
 
 function tradeSelectClass(idSection) {
-	const lastSelected = document.querySelector(".estiloGeralBotoes--selected");
-	lastSelected.classList.remove("estiloGeralBotoes--selected");
+	const lastSelected = document.querySelector(".button--selected");
+	lastSelected.classList.remove("button--selected");
 	const sectionChoose = document.querySelector(`#${idSection}`);
-	sectionChoose.classList.add("estiloGeralBotoes--selected");
+	sectionChoose.classList.add("button--selected");
 }
-
-function animationCards() {
-	infoProduct.classList.add("transitionImages");
-}
-
-function clearAndList(products) {
-	const list = document.querySelector("ul");
-	const sectionClassProduct = "." + products[0].secao.toLowerCase();
-	const elementsShow = document.querySelectorAll(sectionClassProduct);
-	const elementsNotShowed = document.querySelectorAll(sectionClassProduct);
-
-	console.log(elementsShow);
-	list.innerHTML = "";
-	return createData(products);
-}
-
-// function filterJustTheSection(section) {
-// 	let actualProductsVitrine = [...produtos];
-// 	let list = document.querySelector("ul");
-// 	list.childNodes.forEach((child) => {
-// 		if (
-// 			child.childNodes[2].innerText.toLowerCase().replace("í", "i") !== section
-// 		) {
-// 			console.log(child);
-// 			child.classList.add("transitionImages");
-// 			setTimeout(() => {
-// 				child.innerText = "";
-// 				list.removeChild(child);
-// 			}, 1000);
-// 		} else {
-// 			list.appendChild(child);
-// 		}
-// 	});
-// 	actualProductsVitrine = actualProductsVitrine.filter(
-// 		(produto) => produto.secao.toLowerCase() === section.toLowerCase()
-// 	);
-// }
-//Selecionar os produtos do array. Se esse produto já estiver deixar ele, caso não tenha adicionar e caso não tenha na lista de array removê-lo
-
-// Temos vários itens - precisamos remover apenas os que não são
