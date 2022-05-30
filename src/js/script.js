@@ -102,6 +102,7 @@ function searchProduct(event) {
 		event.key === "Enter"
 	) {
 		const productSearch = document.querySelector("input").value;
+		event.preventDefault();
 		removeClassButtonAddAll();
 		filterCards(productSearch);
 	}
@@ -147,24 +148,62 @@ function addToShowCase(selectedProducts, cardsArray) {
 }
 
 function getSelectedProducts(searchedValue) {
-	searchedValue = searchedValue.toLowerCase();
+	//! Replace -removendo acentos- Fonte: https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
+	searchedValue = searchedValue
+		.toLowerCase()
+		.trim()
+		.normalize("NFD")
+		.replace(/\p{Diacritic}/gu, "");
 	let productsSearched = produtos.filter(
 		({ nome, secao, categoria }) =>
-			nome.toLowerCase().includes(searchedValue) ||
-			secao.toLowerCase().includes(searchedValue) ||
-			categoria.toLowerCase().includes(searchedValue)
+			nome
+				.toLowerCase()
+				.normalize("NFD")
+				.replace(/\p{Diacritic}/gu, "")
+				.includes(searchedValue) ||
+			secao
+				.toLowerCase()
+				.normalize("NFD")
+				.replace(/\p{Diacritic}/gu, "")
+				.includes(searchedValue) ||
+			categoria
+				.toLowerCase()
+				.normalize("NFD")
+				.replace(/\p{Diacritic}/gu, "")
+				.includes(searchedValue)
 	);
 	return productsSearched;
 }
 
 function getProductsThatAreNotSelected(searchedValue) {
-	searchedValue.toLowerCase();
+	searchedValue = searchedValue
+		.toLowerCase()
+		.normalize("NFD")
+		.replace(/\p{Diacritic}/gu, "");
 	let productsNotSearched = produtos.filter(({ nome, secao, categoria }) => {
-		if (nome.toLowerCase().includes(searchedValue)) {
+		if (
+			nome
+				.toLowerCase()
+				.normalize("NFD")
+				.replace(/\p{Diacritic}/gu, "")
+				.includes(searchedValue)
+		) {
 			return false;
-		} else if (secao.toLowerCase().includes(searchedValue)) {
+		} else if (
+			secao
+				.toLowerCase()
+				.normalize("NFD")
+				.replace(/\p{Diacritic}/gu, "")
+				.includes(searchedValue)
+		) {
 			return false;
-		} else if (categoria.toLowerCase().includes(searchedValue)) {
+		} else if (
+			categoria
+				.toLowerCase()
+				.normalize("NFD")
+				.replace(/\p{Diacritic}/gu, "")
+				.includes(searchedValue)
+		) {
 			return false;
 		} else {
 			return true;
@@ -538,7 +577,7 @@ function removeCartProduct(event) {
 		removeSelectedProduct(event.target.id);
 	}
 	if (productsCart.length === 0) {
-		backToEmptyCart();
+		backToEmptyCart(event);
 	}
 }
 
@@ -560,9 +599,11 @@ function removeProductInCartArray(idNumber) {
 	return productsCart.filter(({ id }) => +id != +idNumber);
 }
 
-function backToEmptyCart() {
+function backToEmptyCart(event) {
 	const cartProductList = document.querySelector(".cart__product-list");
-	deleteCartTotalDetails();
+	if (event.target.className.includes("button__remove")) {
+		deleteCartTotalDetails();
+	}
 
 	cartProductList.classList.remove("cart__product-list--scroll");
 	cartProductList.classList.add("cart__product-list--center");
@@ -571,7 +612,7 @@ function backToEmptyCart() {
 						class="cart__img-empty-cart"
 					/>
 					<p class="cart__text-empty">
-						Por enquanto não temos produtos no carrinho
+						Por enquanto não temos produtos no carri nho
 					</p>`;
 	return cartProductList;
 }
