@@ -344,6 +344,7 @@ header {
 .button__plus {
 	border: 2.5px solid var(--dark-grey-color);
 	color: var(--dark-grey-color);
+	cursor: pointer;
 }
 
 .button__minus {
@@ -353,6 +354,7 @@ header {
 .button__minus--active {
 	border: 2.5px solid var(--dark-grey-color);
 	color: var(--dark-grey-color);
+	cursor: pointer;
 }
 .button__remove {
 	margin-right: 22px;
@@ -365,6 +367,7 @@ header {
 	align-items: center;
 	justify-content: center;
 	border-color: white;
+	cursor: pointer;
 }
 
 .fa-trash {
