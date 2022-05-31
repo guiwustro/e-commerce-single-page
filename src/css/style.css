@@ -470,6 +470,7 @@ header {
 		overflow: hidden;
 		row-gap: 25px;
 		flex-wrap: wrap;
+		align-content: flex-start;
 	}
 	.cart {
 		height: 437px;
