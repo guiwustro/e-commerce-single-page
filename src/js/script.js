@@ -612,7 +612,7 @@ function backToEmptyCart(event) {
 						class="cart__img-empty-cart"
 					/>
 					<p class="cart__text-empty">
-						Por enquanto não temos produtos no carri nho
+						Por enquanto não temos produtos no carrinho
 					</p>`;
 	return cartProductList;
 }
