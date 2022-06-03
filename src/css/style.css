@@ -595,11 +595,11 @@ header {
 
 @media (min-width: 1440px) {
 	.product-list {
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(5, 1fr);
 	}
 
 	.product-list--cart-on {
-		grid-template-columns: repeat(5, 1fr);
+		grid-template-columns: repeat(4, 1fr);
 	}
 
 	.search__input {
