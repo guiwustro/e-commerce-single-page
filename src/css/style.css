@@ -594,10 +594,6 @@ header {
 }
 
 @media (min-width: 1440px) {
-	body {
-		margin: 100 auto;
-	}
-
 	.product-list {
 		grid-template-columns: repeat(4, 1fr);
 	}
@@ -613,6 +609,11 @@ header {
 	.menu,
 	.container {
 		max-width: 1440px;
+	}
+
+	.container {
+		margin: 0 auto;
+		padding: 0 50px;
 	}
 
 	/* ! Estou com dúvida aqui!! Não sei como fazer minha aplicação parar em 1440 e deixar o resto em margem... Não fica alinhado :( já tentei tudo que é tipo de margin, padding, não tô entendendo pq dá errado  */
