@@ -148,61 +148,23 @@ function addToShowCase(selectedProducts, cardsArray) {
 }
 
 function getSelectedProducts(searchedValue) {
-	//! Replace -removendo acentos- Fonte: https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
-	searchedValue = searchedValue
-		.toLowerCase()
-		.trim()
-		.normalize("NFD")
-		.replace(/\p{Diacritic}/gu, "");
-	let productsSearched = produtos.filter(
+	const searchedValueWithoutAccents = removeAccents(searchedValue);
+	const productsSearched = produtos.filter(
 		({ nome, secao, categoria }) =>
-			nome
-				.toLowerCase()
-				.normalize("NFD")
-				.replace(/\p{Diacritic}/gu, "")
-				.includes(searchedValue) ||
-			secao
-				.toLowerCase()
-				.normalize("NFD")
-				.replace(/\p{Diacritic}/gu, "")
-				.includes(searchedValue) ||
-			categoria
-				.toLowerCase()
-				.normalize("NFD")
-				.replace(/\p{Diacritic}/gu, "")
-				.includes(searchedValue)
+			removeAccents(nome).includes(searchedValueWithoutAccents) ||
+			removeAccents(secao).includes(searchedValueWithoutAccents) ||
+			removeAccents(categoria).includes(searchedValueWithoutAccents)
 	);
 	return productsSearched;
 }
 
 function getProductsThatAreNotSelected(searchedValue) {
-	searchedValue = searchedValue
-		.toLowerCase()
-		.normalize("NFD")
-		.replace(/\p{Diacritic}/gu, "");
-	let productsNotSearched = produtos.filter(({ nome, secao, categoria }) => {
+	const searchedValueWithoutAccents = removeAccents(searchedValue);
+	const productsNotSearched = produtos.filter(({ nome, secao, categoria }) => {
 		if (
-			nome
-				.toLowerCase()
-				.normalize("NFD")
-				.replace(/\p{Diacritic}/gu, "")
-				.includes(searchedValue)
-		) {
-			return false;
-		} else if (
-			secao
-				.toLowerCase()
-				.normalize("NFD")
-				.replace(/\p{Diacritic}/gu, "")
-				.includes(searchedValue)
-		) {
-			return false;
-		} else if (
-			categoria
-				.toLowerCase()
-				.normalize("NFD")
-				.replace(/\p{Diacritic}/gu, "")
-				.includes(searchedValue)
+			removeAccents(nome).includes(searchedValueWithoutAccents) ||
+			removeAccents(secao).includes(searchedValueWithoutAccents) ||
+			removeAccents(categoria).includes(searchedValueWithoutAccents)
 		) {
 			return false;
 		} else {
@@ -210,6 +172,15 @@ function getProductsThatAreNotSelected(searchedValue) {
 		}
 	});
 	return productsNotSearched;
+}
+
+function removeAccents(name) {
+	//! Replace -removendo acentos- Fonte: https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
+	return name
+		.toLowerCase()
+		.trim()
+		.normalize("NFD")
+		.replace(/\p{Diacritic}/gu, "");
 }
 
 //* Filtro por categorias
@@ -236,14 +207,14 @@ function filterByButton(event) {
 }
 
 function getProductsBySection(section) {
-	let productsSectionChoose = produtos.filter((product) =>
+	const productsSectionChoose = produtos.filter((product) =>
 		product.secao.toLowerCase().includes(section.toLowerCase())
 	);
 	return productsSectionChoose;
 }
 
 function getProductsOutSection(section) {
-	let productsOutSection = produtos.filter(
+	const productsOutSection = produtos.filter(
 		(product) => !product.secao.toLowerCase().includes(section.toLowerCase())
 	);
 	return productsOutSection;
@@ -291,6 +262,7 @@ function addProductToCart(event) {
 }
 
 function removeEmptyCartInfo() {
+	cartAppearsOnScreen();
 	const emptyCart = document.querySelector(".cart__product-list");
 	const cartEmptyImg = document.querySelector(".cart__img-empty-cart");
 	const cartEmptyText = document.querySelector(".cart__text-empty");
@@ -300,6 +272,13 @@ function removeEmptyCartInfo() {
 		emptyCart.removeChild(cartEmptyText);
 	}
 	return emptyCart;
+}
+
+function cartAppearsOnScreen() {
+	const cart = document.querySelector(".cart");
+	cart.classList.remove("cart--hide");
+	const showCase = document.querySelector(".product-list");
+	showCase.classList.add("product-list--cart-on");
 }
 
 function addProduct(idProduct) {
@@ -578,6 +557,7 @@ function removeCartProduct(event) {
 	}
 	if (productsCart.length === 0) {
 		backToEmptyCart(event);
+		cartDissapearsOnScreen();
 	}
 }
 
@@ -615,6 +595,13 @@ function backToEmptyCart(event) {
 						Por enquanto não temos produtos no carrinho
 					</p>`;
 	return cartProductList;
+}
+
+function cartDissapearsOnScreen() {
+	const cart = document.querySelector(".cart");
+	cart.classList.add("cart--hide");
+	const showCase = document.querySelector(".product-list");
+	showCase.classList.remove("product-list--cart-on");
 }
 
 function deleteCartTotalDetails() {
@@ -656,4 +643,49 @@ function tradeClassMinus(idProduct, amountProduct) {
 		buttonSelected.classList.remove("button__minus--active");
 	}
 	return buttonSelected;
+}
+
+function addCartToTheScreen(productsCart) {
+	const cart = document.querySelector(".cart");
+	if (productsCart.length > 0) {
+		console.log(cart);
+		cart.classList.remove("cart--hide");
+	} else {
+		cart.classList.add("cart--er");
+	}
+}
+
+function menuCart() {
+	const menuCart = document.querySelector(".menu__cart-button");
+	menuCart.addEventListener("click", toogleCart);
+}
+
+function toogleCart() {
+	const cart = document.querySelector(".cart");
+	if (cart.classList.contains("cart--hide")) {
+		cartAppearsOnScreen();
+	} else {
+		cartDissapearsOnScreen();
+	}
+}
+
+menuCart();
+
+//! Aqui eu não consegui pensar num jeito q eu nao precisasse colocar evento especifico em cada elemento então, resolvi fazer de um jeito mais simples kkk Coloquei um evento no body q qndo clicasse ia retornar o array. Dessa forma não preciso incluir um evento pro botão do carrinho e pros botões de adicionar e remover do carrinho.
+//! Provavelmente vou aprender alguma forma de identificar sempre que o array mude no meu arquivo? (Você sabe alguma maneira? ) Ou eu já aprendi e não consegui pensar em algo?
+
+const body = document.querySelector("body");
+body.addEventListener("click", menuNumberProducts);
+
+function menuNumberProducts() {
+	const numberMenuCart = document.querySelector(".menu__cart-number");
+	const cartAmount = calculateTotalAmount(productsCart);
+	console.log(cartAmount);
+	if (cartAmount > 0) {
+		numberMenuCart.classList.add("menu__cart-number--active");
+		numberMenuCart.innerText = cartAmount;
+	} else {
+		numberMenuCart.classList.remove("menu__cart-number--active");
+		numberMenuCart.innerText = "";
+	}
 }

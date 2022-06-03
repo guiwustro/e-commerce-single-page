@@ -17,44 +17,42 @@
 	</head>
 	<body>
 		<!-- CABEÇALHO -->
-		<header>
-			<h1 class="shop__title">Shop Now</h1>
-			<div class="menu">
-				<div class="menu__section">
-					<button id="todos" class="button button--standard button--selected">
-						Todos
-					</button>
-					<button id="hortifruti" class="button button--standard">
-						Hortifruti
-					</button>
-					<button id="panificadora" class="button button--standard">
-						Panificadora
-					</button>
-					<button id="laticinio" class="button button--standard">
-						Laticínios
-					</button>
-				</div>
-				<form class="menu__search">
-					<input
-						type="text"
-						placeholder="Pesquisar por"
-						class="search__input"
-					/>
-					<button class="button search__button">
-						<img
-							class="search__img"
-							src="src/img/magnifying-glass-solid.svg"
-							alt=""
-							id="search"
-						/>
-					</button>
-				</form>
+		<header class="shop__title">Shop Now</header>
+		<nav class="menu">
+			<div class="menu__section">
+				<button id="todos" class="button button--standard button--selected">
+					Todos
+				</button>
+				<button id="hortifruti" class="button button--standard">
+					Hortifruti
+				</button>
+				<button id="panificadora" class="button button--standard">
+					Panificadora
+				</button>
+				<button id="laticinio" class="button button--standard">
+					Laticínios
+				</button>
 			</div>
-		</header>
+			<form class="menu__search">
+				<input type="text" placeholder="Pesquisar por" class="search__input" />
+				<button class="button search__button">
+					<img
+						class="search__img"
+						src="src/img/magnifying-glass-solid.svg"
+						alt=""
+						id="search"
+					/>
+				</button>
+			</form>
+			<button class="menu__cart-button">
+				<i class="fa-solid fa-cart-shopping menu__cart-icon"></i>
+				<span class="menu__cart-number"></span>
+			</button>
+		</nav>
 		<!-- CONTEÚDO -->
 		<main class="container">
 			<ul class="product-list"></ul>
-			<aside class="cart">
+			<aside class="cart cart--hide">
 				<h3 class="cart__title">
 					<i class="fa-solid fa-cart-arrow-down"></i>
 					Carrinho
