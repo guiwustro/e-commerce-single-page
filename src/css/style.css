@@ -603,7 +603,7 @@ header {
 	}
 
 	.product-list--cart-on {
-		grid-template-columns: repeat(6, 1fr);
+		grid-template-columns: repeat(4, 1fr);
 	}
 
 	.search__input {
