@@ -563,7 +563,7 @@ header {
 
 @media (min-width: 1440px) {
 	body {
-		margin: 100 auto;
+		margin: 0 auto;
 	}
 
 	.product-list {
@@ -577,7 +577,9 @@ header {
 	}
 	.menu,
 	.container {
+		margin: 0 auto;
 		max-width: 1440px;
+		padding-left: 20px;
+		padding-right: 20px;
 	}
-	/* ! Estou com dúvida aqui!! Não sei como fazer minha aplicação parar em 1440 e deixar o resto em margem... Não fica alinhado :( já tentei tudo que é tipo de margin, padding, não tô entendendo pq dá errado  */
 }

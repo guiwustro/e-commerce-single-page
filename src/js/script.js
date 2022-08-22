@@ -671,16 +671,12 @@ function toogleCart() {
 
 menuCart();
 
-//! Aqui eu não consegui pensar num jeito q eu nao precisasse colocar evento especifico em cada elemento então, resolvi fazer de um jeito mais simples kkk Coloquei um evento no body q qndo clicasse ia retornar o array. Dessa forma não preciso incluir um evento pro botão do carrinho e pros botões de adicionar e remover do carrinho.
-//! Provavelmente vou aprender alguma forma de identificar sempre que o array mude no meu arquivo? (Você sabe alguma maneira? ) Ou eu já aprendi e não consegui pensar em algo?
-
 const body = document.querySelector("body");
 body.addEventListener("click", menuNumberProducts);
 
 function menuNumberProducts() {
 	const numberMenuCart = document.querySelector(".menu__cart-number");
 	const cartAmount = calculateTotalAmount(productsCart);
-	console.log(cartAmount);
 	if (cartAmount > 0) {
 		numberMenuCart.classList.add("menu__cart-number--active");
 		numberMenuCart.innerText = cartAmount;
