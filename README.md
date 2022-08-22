@@ -7,7 +7,7 @@
   <p align="center">
     É uma aplicação de página única de um e-commerce, o qual possui uma vitrine com produtos com botões de adicionar ao carrinho, um carrinho de compras,uma barra de filtros e um campo de pesquisa.
     <br />
-    <a href="">Link do projeto</a>
+    <a href="https://guiwustro.github.io/e-commerce-single-page/">Link do projeto</a>
 
   </p>
 </div>
@@ -43,6 +43,7 @@ O projeto foi realizado utilizando JavaScript Vanilla, CSS e HTML.
 - [x] Botão com a opção de adicionar ao carrinho em cada produto do e-commerce;
 - [x] Campo de pesquisa funcional para pesquisar por categoria ou nome do
       produto;
+- [x] Barra de filtros por categoria;
 - [x] Opção de aumentar, diminuir quantidade e remover pelo carrinho de compras
       ;
 - [x] Cálculo total do carrinho de compras;
