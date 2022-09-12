@@ -104,8 +104,9 @@ header {
 }
 
 .search__input {
-	/* max-width: 220px; */
-	/* width: 104px; */
+	min-width: 150px;
+	width: 150px;
+
 	height: 52px;
 	border-radius: 8px;
 	border: solid transparent;
@@ -113,6 +114,16 @@ header {
 	background: var(--light-grey-color);
 	font-weight: 400;
 	max-width: 600px;
+}
+@media (min-width: 425px) {
+	.search__input {
+		width: 200px;
+	}
+}
+@media (min-width: 550px) {
+	.search__input {
+		width: 300px;
+	}
 }
 
 .search__button {
@@ -202,7 +213,7 @@ header {
 }
 
 .card__img {
-	object-fit: contain;
+	object-fit: cover;
 }
 
 .card__name {
@@ -373,6 +384,7 @@ header {
 	width: 70px;
 	height: 70px;
 	border-radius: 8px;
+	object-fit: cover;
 }
 
 .cart__product-text-and-button {
@@ -499,6 +511,7 @@ header {
 		justify-content: space-between;
 		padding: 29px 50px 10px;
 		margin: 0 auto;
+		/* grid-template-columns: 2fr 1fr; */
 	}
 
 	.menu__section {
